@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/LogInForm.css';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function LogInForm({ onSignUpClick }) {
+  const { login } = useAuth();
+  const [error, setError] = useState('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setError('');
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    const result = login(email, password);
+    if (result) {
+      alert(`Login successful: ${email}`);
+    } else {
+      setError('Incorrect email or password');
+      alert('Incorrect email or password');
+    }
+  }
+
   return (
-    <form className="sidebar-form" onSubmit={e => { e.preventDefault(); /* handle login here */ }}>
+    <form className="sidebar-form" onSubmit={handleSubmit}>
       <label>
         Email:
         <input type="email" name="email" required autoComplete="username" />
@@ -20,6 +39,7 @@ export default function LogInForm({ onSignUpClick }) {
       >
         Sign In
       </button>
+      {error && <div className="login-error">{error}</div>}
     </form>
   );
 }

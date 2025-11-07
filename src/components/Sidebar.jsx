@@ -2,10 +2,13 @@ import React, { useRef, useState } from 'react';
 import '../css/Sidebar.css';
 import LogInForm from './LogInForm';
 import SignUpForm from './SignUpForm';
+import SidebarMenu from './SidebarMenu';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Sidebar({ open, onClose }) {
   const sidebarRef = useRef();
   const [showSignUp, setShowSignUp] = useState(false);
+  const { user } = useAuth();
 
   function handleBackdropClick(e) {
     if (e.target === sidebarRef.current) {
@@ -22,11 +25,17 @@ export default function Sidebar({ open, onClose }) {
     >
       <div className={`sidebar${open ? ' open' : ''}`}>
         <button className="sidebar-close" onClick={onClose} aria-label="Close">&times;</button>
-        <div className="sidebar-title">{showSignUp ? 'Sign In' : 'Log-In'}</div>
-        {!showSignUp ? (
-          <LogInForm onSignUpClick={() => setShowSignUp(true)} />
+        {!user ? (
+          <>
+            <div className="sidebar-title">{showSignUp ? 'Sign In' : 'Log-In'}</div>
+            {!showSignUp ? (
+              <LogInForm onSignUpClick={() => setShowSignUp(true)} />
+            ) : (
+              <SignUpForm onLogInClick={() => setShowSignUp(false)} />
+            )}
+          </>
         ) : (
-          <SignUpForm onLogInClick={() => setShowSignUp(false)} />
+          <SidebarMenu onClose={onClose} />
         )}
       </div>
     </div>
