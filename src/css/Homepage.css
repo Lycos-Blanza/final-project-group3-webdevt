@@ -88,6 +88,27 @@ body {
   text-align: center;
 }
 
+.homepage-explore-btn {
+  display: inline-block;
+  padding: 0.7rem 2.2rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  background: #6d4c1b;
+  border: none;
+  border-radius: 32px;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: background 0.15s, transform 0.13s;
+  margin-top: 2rem;
+  letter-spacing: 1px;
+}
+
+.homepage-explore-btn:hover {
+  background: #8a6426;
+  transform: translateY(-2px) scale(1.04);
+}
+
 @media (max-width: 700px) {
   .homepage-title {
     font-size: 2.5rem;

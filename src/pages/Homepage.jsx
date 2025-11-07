@@ -4,14 +4,32 @@ import Topbar from '../components/Topbar';
 import Menu from '../components/Menu';
 
 export default function Homepage() {
+  // Scroll to menu section
+  const handleExploreClick = () => {
+    const menuSection = document.getElementById('menu-section');
+    if (menuSection) {
+      menuSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <Topbar />
       <div className="homepage-container" style={{ paddingTop: 'var(--topbar-height)' }}>
         <div className="homepage-bg">
           <div className="homepage-bg-content">
-            <div className="homepage-title">
-              WELCOME TO<br />DINER28
+            {/* Wrap title and button in a column flex container */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div className="homepage-title">
+                WELCOME TO<br />DINER28
+              </div>
+              <button
+                className="homepage-explore-btn"
+                onClick={handleExploreClick}
+                style={{ marginTop: '2rem' }}
+              >
+                EXPLORE
+              </button>
             </div>
           </div>
         </div>

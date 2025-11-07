@@ -11,7 +11,7 @@ export default function Menu() {
   }, []);
 
   return (
-    <div className="menu-section">
+    <div className="menu-section" id="menu-section">
       <h2 className="menu-title">Menu</h2>
       <div className="menu-cards">
         {items.map((item, idx) => (
