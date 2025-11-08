@@ -1,15 +1,13 @@
-import React from 'react';
-import '../css/Homepage.css';
-import Topbar from '../components/Topbar';
-import Menu from '../components/Menu';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import Topbar from "../components/Topbar";
+import Menu from "../components/Menu";
+import { useNavigate } from "react-router-dom";
 
 export default function Homepage() {
-  // Scroll to menu section
   const handleExploreClick = () => {
-    const menuSection = document.getElementById('menu-section');
+    const menuSection = document.getElementById("menu-section");
     if (menuSection) {
-      menuSection.scrollIntoView({ behavior: 'smooth' });
+      menuSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -18,40 +16,104 @@ export default function Homepage() {
   return (
     <>
       <Topbar />
-      <div className="homepage-container" style={{ paddingTop: 'var(--topbar-height)' }}>
-        <div className="homepage-bg">
-          <div className="homepage-bg-content">
-            {/* Wrap title and button in a column flex container */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div className="homepage-title">
-                WELCOME TO<br />DINER28
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', marginTop: '2rem' }}>
-                <button
-                  className="homepage-explore-btn"
-                  onClick={handleExploreClick}
-                >
-                  EXPLORE
-                </button>
-                <button
-                  className="homepage-explore-btn"
-                  onClick={() => navigate('/reserve')}
-                >
-                  RESERVE
-                </button>
-              </div>
+
+      <div className="pt-[56px] w-full">
+
+        {/* ✅ HERO — FULL WIDTH */}
+        <div
+          className="
+            w-full h-[650px]
+            flex items-center justify-center
+            relative
+            bg-cover bg-center bg-no-repeat
+            overflow-hidden
+            max-[700px]:h-[280px]
+          "
+          style={{
+            backgroundImage:
+              "url('https://popmenucloud.com/cdn-cgi/image/width%3D1920%2Cheight%3D1920%2Cfit%3Dscale-down%2Cformat%3Dauto%2Cquality%3D60/dxkflgbu/c77222db-9b6a-49e4-a654-0f5b7c53e341.jpg')",
+          }}
+        >
+          <div className="absolute inset-0 bg-[rgba(40,30,10,0.55)]"></div>
+
+          <div className="relative z-[2] text-center px-4">
+            <div
+              className="
+                font-['Staatliches']
+                text-white text-[6rem]
+                tracking-[3px]
+                leading-[0.9]
+                drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)]
+                max-[700px]:text-[3rem]
+              "
+            >
+              WELCOME TO
+              <br />
+              DINER28
+            </div>
+
+            <div className="flex justify-center gap-4 mt-8">
+              <button
+                onClick={handleExploreClick}
+                className="
+                  py-[0.7rem] px-[2.2rem]
+                  text-[1.15rem] font-bold text-white
+                  bg-[#6d4c1b] rounded-[32px]
+                  shadow-md
+                  hover:bg-[#8a6426] hover:scale-[1.05]
+                  transition-all
+                "
+              >
+                EXPLORE
+              </button>
+
+              <button
+                onClick={() => navigate("/reserve")}
+                className="
+                  py-[0.7rem] px-[2.2rem]
+                  text-[1.15rem] font-bold text-white
+                  bg-[#6d4c1b] rounded-[32px]
+                  shadow-md
+                  hover:bg-[#8a6426] hover:scale-[1.05]
+                  transition-all
+                "
+              >
+                RESERVE
+              </button>
             </div>
           </div>
         </div>
-        <div className="homepage-description">
-          <div className="homepage-quote">
-            <b><i>”Diner28: Where gastronomy transcends dining.”</i></b>
+
+        {/* ✅ CONTENT (FULL WIDTH + CENTERED) */}
+        <div className="w-full flex flex-col items-center bg-[#f6f0e7]">
+
+          {/* Tagline */}
+          <div
+            className="
+              text-[1.15rem] text-[#222]
+              mb-8 text-center max-w-[800px]
+              px-10 pt-10 pb-8 mt-10
+              max-[700px]:px-[1rem]
+            "
+          >
+            <div
+              className="
+                text-[1.15rem] font-bold italic text-[#6d4c1b]
+                text-center mb-[1.2rem]
+              "
+            >
+              ”Diner28: Where gastronomy transcends dining.”
+            </div>
+
+            <div className="text-[#222] text-[1.08rem] leading-[1.7] text-center">
+              <b>Diner28</b> is an elevated culinary sanctuary where innovation
+              meets timeless elegance...
+            </div>
           </div>
-          <div className="homepage-text">
-            <b>Diner28</b> is an elevated culinary sanctuary where innovation meets timeless elegance. Each plate is a meticulously crafted composition, celebrating the harmony of flavors, textures, and artistry. From the ethereal amuse-bouches to signature entrées that push the boundaries of contemporary cuisine, every detail is designed to evoke awe and delight. Our sommelier-curated selections and bespoke desserts complement the immersive ambiance, transforming every meal into an unforgettable sensory journey.
-          </div>
+
+          {/* Menu */}
+          <Menu />
         </div>
-        <Menu />
       </div>
     </>
   );

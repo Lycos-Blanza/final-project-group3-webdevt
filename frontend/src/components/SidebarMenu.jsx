@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/SidebarMenu.css';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,25 +17,34 @@ export default function SidebarMenu({ onClose }) {
   }
 
   return (
-    <div className="sidebar-menu">
-      <div className="sidebar-welcome">Welcome, {user?.email}</div>
-      <ul className="sidebar-links">
+    <div className="flex flex-col items-start py-6">
+      <div className="text-[#333] text-[1.2em] font-bold mb-5">
+        Welcome, {user?.email}
+      </div>
+
+      <ul className="list-none p-0 m-0 mb-4 w-full">
         {user?.role === 'admin' ? (
           <li>
-            <button className="sidebar-link" onClick={onClose}>
+            <button
+              className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
+              onClick={onClose}
+            >
               Dashboard
             </button>
           </li>
         ) : (
           <>
             <li>
-              <button className="sidebar-link" onClick={handleHomeClick}>
+              <button
+                className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
+                onClick={handleHomeClick}
+              >
                 Home
               </button>
             </li>
             <li>
               <button
-                className="sidebar-link"
+                className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
                 onClick={() => {
                   navigate('/my-reservations');
                   if (onClose) onClose();
@@ -46,15 +54,25 @@ export default function SidebarMenu({ onClose }) {
               </button>
             </li>
             <li>
-              <button className="sidebar-link" onClick={onClose}>
+              <button
+                className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
+                onClick={onClose}
+              >
                 Contact Us
               </button>
             </li>
           </>
         )}
       </ul>
-      <hr className="sidebar-divider" />
-      <button className="sidebar-logout" onClick={handleLogout}>Logout</button>
+
+      <hr className="w-full border-0 border-t border-[#ddd] my-4" />
+
+      <button
+        className="bg-[#e74c3c] text-white border-0 py-[10px] px-[18px] rounded cursor-pointer text-[1em] hover:bg-[#c0392b]"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
     </div>
   );
 }

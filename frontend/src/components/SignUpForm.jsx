@@ -1,29 +1,66 @@
-import React from 'react';
-import '../css/SignUpForm.css';
-
 export default function SignUpForm({ onLogInClick }) {
   return (
-    <form className="sidebar-form" onSubmit={e => { e.preventDefault(); /* handle signup here */ }}>
-      <label>
+    <form
+      className="flex flex-col gap-[18px]"
+      onSubmit={e => {
+        e.preventDefault();
+        // handle signup here
+      }}
+    >
+      <label className="flex flex-col text-[1rem] text-[#222]">
         Name:
-        <input type="text" name="name" required autoComplete="name" />
+        <input
+          className="mt-[6px] p-2 border border-[#bbb] rounded text-[1rem]"
+          type="text"
+          name="name"
+          required
+          autoComplete="name"
+        />
       </label>
-      <label>
+
+      <label className="flex flex-col text-[1rem] text-[#222]">
         Email:
-        <input type="email" name="email" required autoComplete="username" />
+        <input
+          className="mt-[6px] p-2 border border-[#bbb] rounded text-[1rem]"
+          type="email"
+          name="email"
+          required
+          autoComplete="username"
+        />
       </label>
-      <label>
+
+      <label className="flex flex-col text-[1rem] text-[#222]">
         Password:
-        <input type="password" name="password" required autoComplete="new-password" />
+        <input
+          className="mt-[6px] p-2 border border-[#bbb] rounded text-[1rem]"
+          type="password"
+          name="password"
+          required
+          autoComplete="new-password"
+        />
       </label>
-      <label>
+
+      <label className="flex flex-col text-[1rem] text-[#222]">
         Confirm Password:
-        <input type="password" name="confirmPassword" required autoComplete="new-password" />
+        <input
+          className="mt-[6px] p-2 border border-[#bbb] rounded text-[1rem]"
+          type="password"
+          name="confirmPassword"
+          required
+          autoComplete="new-password"
+        />
       </label>
-      <button type="submit" className="sidebar-submit">Submit</button>
+
+      <button
+        type="submit"
+        className="mt-3 py-[10px] bg-[#222] text-white rounded text-[1.1rem] cursor-pointer font-bold"
+      >
+        Submit
+      </button>
+
       <button
         type="button"
-        className="sidebar-alt"
+        className="mt-[10px] py-2 bg-[#eee] text-[#222] rounded text-[1rem] cursor-pointer font-bold w-full"
         onClick={onLogInClick}
       >
         Log-In
