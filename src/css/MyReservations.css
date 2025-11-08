@@ -1,0 +1,48 @@
+.myreservations-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: #f7f7f7;
+}
+
+.myreservations-container {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  min-width: 350px;
+}
+
+.myreservations-back-link {
+  display: inline-block;
+  margin: 1rem 0 0 2rem;
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.myreservations-login-message {
+  color: #c00;
+  margin-top: 1rem;
+}
+
+.myreservations-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+
+.myreservations-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 2rem;
+  font-size: 1.1rem;
+}
+
+.myreservations-empty {
+  color: #888;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+}

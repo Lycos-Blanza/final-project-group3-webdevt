@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/Homepage.css';
 import Topbar from '../components/Topbar';
 import Menu from '../components/Menu';
+import { useNavigate } from 'react-router-dom';
 
 export default function Homepage() {
   // Scroll to menu section
@@ -11,6 +12,8 @@ export default function Homepage() {
       menuSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -23,13 +26,20 @@ export default function Homepage() {
               <div className="homepage-title">
                 WELCOME TO<br />DINER28
               </div>
-              <button
-                className="homepage-explore-btn"
-                onClick={handleExploreClick}
-                style={{ marginTop: '2rem' }}
-              >
-                EXPLORE
-              </button>
+              <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', marginTop: '2rem' }}>
+                <button
+                  className="homepage-explore-btn"
+                  onClick={handleExploreClick}
+                >
+                  EXPLORE
+                </button>
+                <button
+                  className="homepage-explore-btn"
+                  onClick={() => navigate('/reserve')}
+                >
+                  RESERVE
+                </button>
+              </div>
             </div>
           </div>
         </div>
