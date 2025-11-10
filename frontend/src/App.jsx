@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Reservation from './pages/Reservation'
 import MyReservations from './pages/MyReservations'
 import Dashboard from './pages/Dashboard'
+import ContactUs from './pages/ContactUs'
+import Messages from './pages/Messages'
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           <Route path="/reserve" element={<Reservation />} />
           <Route path="/my-reservations" element={<MyReservations />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/messages" element={<Messages />} />
         </Routes>
       </Router>
     </AuthProvider>
