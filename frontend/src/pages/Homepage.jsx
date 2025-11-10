@@ -1,5 +1,4 @@
 import React from "react";
-import Topbar from "../components/Topbar";
 import Menu from "../components/Menu";
 import { useNavigate } from "react-router-dom";
 
@@ -15,8 +14,6 @@ export default function Homepage() {
 
   return (
     <>
-      <Topbar />
-
       <div className="pt-[56px] w-full">
 
         {/* ✅ HERO — FULL WIDTH */}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
-import Topbar from '../components/Topbar';
+
 
 export default function Reservation() {
   const { user, addReservation } = useAuth();
@@ -31,25 +31,8 @@ export default function Reservation() {
 
   return (
     <>
-      <Topbar />
-
       {/* page container */}
       <div className="pt-[56px] mx-auto max-w-[1200px] px-4 bg-[#f6f0e7] min-h-screen relative">
-
-        {/* Back button */}
-        <Link
-          to="/"
-          className="
-          absolute top-[72px] left-0 z-10 inline-block
-          text-[#222] no-underline font-medium text-[1rem]
-          transition-colors duration-200
-          bg-white px-3 py-1 rounded-md
-          shadow-[0_2px_8px_rgba(0,0,0,0.04)]
-          hover:text-[#c00]
-        "
-        >
-          ← Back
-        </Link>
 
         {/* center content */}
         <div className="flex justify-center items-start pt-20 pb-20">

@@ -29,6 +29,14 @@ export default function SidebarMenu({ onClose }) {
             <li>
               <button
                 className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
+                onClick={handleHomeClick}
+              >
+                Home
+              </button>
+            </li>
+            <li>
+              <button
+                className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
                 onClick={() => {
                   navigate('/dashboard');
                   if (onClose) onClose();

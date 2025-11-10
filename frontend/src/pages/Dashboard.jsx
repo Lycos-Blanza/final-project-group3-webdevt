@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import Topbar from '../components/Topbar';
 
 // Helper to get all reservations with status
 function getAllReservations() {
@@ -53,7 +52,6 @@ export default function Dashboard() {
 
   return (
     <>
-      <Topbar />
       <div className="pt-[56px] mx-auto max-w-[1200px] px-4 bg-[#f6f0e7] min-h-screen">
         <h2 className="text-3xl font-bold mb-8 mt-10 text-center text-brandBrown">All Reservations</h2>
         <div className="overflow-x-auto">

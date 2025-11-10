@@ -4,7 +4,6 @@ export default function Messages() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    // Load messages from localStorage
     const data = localStorage.getItem('contact_messages');
     setMessages(data ? JSON.parse(data) : []);
   }, []);

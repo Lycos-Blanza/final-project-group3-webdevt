@@ -7,11 +7,13 @@ import MyReservations from './pages/MyReservations'
 import Dashboard from './pages/Dashboard'
 import ContactUs from './pages/ContactUs'
 import Messages from './pages/Messages'
+import Topbar from './components/Topbar'
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <Topbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/reserve" element={<Reservation />} />

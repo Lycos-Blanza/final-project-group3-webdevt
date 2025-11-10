@@ -1,32 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import Topbar from "../components/Topbar";
 import { Link } from "react-router-dom";
+import CancelReservationModal from "../components/CancelReservationModal";
 
 export default function MyReservations() {
-  const { user, reservations } = useAuth();
+  const { user, reservations, removeReservation } = useAuth();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+
+  const handleCancelClick = (id) => {
+    setSelectedId(id);
+    setModalOpen(true);
+  };
+
+  const handleConfirm = () => {
+    removeReservation(selectedId);
+    setModalOpen(false);
+    setSelectedId(null);
+  };
+
+  const handleClose = () => {
+    setModalOpen(false);
+    setSelectedId(null);
+  };
 
   return (
     <>
-      <Topbar />
+      {/* <Topbar /> */} {/* Remove this line */}
+
+      <CancelReservationModal
+        open={modalOpen}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+      />
 
       {/* page container */}
       <div className="pt-[56px] mx-auto max-w-[1200px] px-4 bg-[#f6f0e7] min-h-screen relative">
-
-        {/* back btn */}
-        <Link
-          to="/"
-          className="
-            absolute top-[72px] left-0 z-10 inline-block
-            text-[#222] no-underline font-medium text-[1rem]
-            transition-colors duration-200
-            bg-white px-3 py-1 rounded-md
-            shadow-[0_2px_8px_rgba(0,0,0,0.04)]
-            hover:text-[#c00]
-          "
-        >
-          ← Back
-        </Link>
 
         <div className="flex justify-center items-start pt-20 pb-20">
           <div
@@ -58,7 +67,7 @@ export default function MyReservations() {
                       text-[1.1rem] text-black
                     "
                   >
-                    <div className="flex gap-8">
+                    <div className="flex gap-8 items-center">
                       <span>Date: {res.date}</span>
                       <span>Time: {res.time}</span>
                       <span>Guests: {res.guests}</span>
@@ -67,6 +76,12 @@ export default function MyReservations() {
                         : res.status === 'rejected' ? 'text-red-600 font-semibold'
                         : 'text-yellow-600 font-semibold'
                       }>{res.status || 'processing'}</span></span>
+                      <button
+                        className="ml-4 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                        onClick={() => handleCancelClick(res.id)}
+                      >
+                        Cancel
+                      </button>
                     </div>
                     {res.note && (
                       <div className="text-gray-700 text-[1rem] pl-2">

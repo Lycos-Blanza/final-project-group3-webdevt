@@ -52,8 +52,22 @@ export function AuthProvider({ children }) {
     setReservationsState(updated);
   };
 
+  const removeReservation = (id) => {
+    if (!user?.email) return;
+    const updated = reservations.filter(res => res.id !== id);
+    setReservations(user.email, updated);
+    setReservationsState(updated);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, reservations, addReservation }}>
+    <AuthContext.Provider value={{
+      user,
+      login,
+      logout,
+      reservations,
+      addReservation,
+      removeReservation
+    }}>
       {children}
     </AuthContext.Provider>
   );
