@@ -25,11 +25,12 @@ export default function Sidebar({ open, onClose }) {
       }`}
     >
       <div
-        className={`
-          fixed top-0 h-screen w-[320px] max-w-[90vw] bg-white shadow-[ -2px_0_16px_rgba(0,0,0,0.15)]
-          flex flex-col pt-8 pb-6 px-6 z-[201] transition-[right] duration-300
-        `}
-        style={{ right: open ? '0px' : '-320px' }}
+        className={`fixed top-0 h-screen w-[320px] max-w-[90vw] bg-white shadow-[ -2px_0_16px_rgba(0,0,0,0.15)]
+          flex flex-col pt-8 pb-6 px-6 z-[201] transition-[right] duration-300`}
+        style={{
+          right: open ? '0px' : '-320px',
+          background: '#E9D3BE',
+        }}
       >
         <button
           className="absolute top-3 right-4 bg-none border-none text-[2rem] text-[#222] cursor-pointer"

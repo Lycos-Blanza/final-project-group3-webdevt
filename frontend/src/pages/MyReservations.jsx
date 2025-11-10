@@ -54,13 +54,25 @@ export default function MyReservations() {
                     key={res.id}
                     className="
                       py-3 border-b border-[#eee]
-                      flex gap-8
+                      flex flex-col gap-2
                       text-[1.1rem] text-black
                     "
                   >
-                    <span>Date: {res.date}</span>
-                    <span>Time: {res.time}</span>
-                    <span>Guests: {res.guests}</span>
+                    <div className="flex gap-8">
+                      <span>Date: {res.date}</span>
+                      <span>Time: {res.time}</span>
+                      <span>Guests: {res.guests}</span>
+                      <span>Status: <span className={
+                        res.status === 'approved' ? 'text-green-600 font-semibold'
+                        : res.status === 'rejected' ? 'text-red-600 font-semibold'
+                        : 'text-yellow-600 font-semibold'
+                      }>{res.status || 'processing'}</span></span>
+                    </div>
+                    {res.note && (
+                      <div className="text-gray-700 text-[1rem] pl-2">
+                        <span className="font-medium">Note:</span> {res.note}
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -9,6 +9,7 @@ export default function Reservation() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [guests, setGuests] = useState(1);
+  const [note, setNote] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +17,8 @@ export default function Reservation() {
       id: Date.now(),
       date,
       time,
-      guests: Number(guests)
+      guests: Number(guests),
+      note
     };
     addReservation(newReservation);
     alert(`Reserved for ${guests} guest(s) on ${date} at ${time}`);
@@ -24,6 +26,7 @@ export default function Reservation() {
     setDate('');
     setTime('');
     setGuests(1);
+    setNote('');
   };
 
   return (
@@ -91,6 +94,17 @@ export default function Reservation() {
                     onChange={e => setGuests(e.target.value)}
                     required
                     className="mt-2 p-2 border border-gray-300 rounded-lg"
+                  />
+                </label>
+
+                <label className="flex flex-col text-left font-medium">
+                  Note (optional):
+                  <textarea
+                    value={note}
+                    onChange={e => setNote(e.target.value)}
+                    className="mt-2 p-2 border border-gray-300 rounded-lg resize-none"
+                    rows={3}
+                    placeholder="Add any special requests or notes..."
                   />
                 </label>
 

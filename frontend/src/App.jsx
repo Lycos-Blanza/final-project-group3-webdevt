@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Reservation from './pages/Reservation'
 import MyReservations from './pages/MyReservations'
+import Dashboard from './pages/Dashboard'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/reserve" element={<Reservation />} />
           <Route path="/my-reservations" element={<MyReservations />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </AuthProvider>

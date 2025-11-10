@@ -7,10 +7,10 @@ export default function SignUpForm({ onLogInClick }) {
         // handle signup here
       }}
     >
-      <label className="flex flex-col text-[1rem] text-[#222]">
+      <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Name:
         <input
-          className="mt-[6px] p-2 border border-[#bbb] rounded text-[1rem]"
+          className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]"
           type="text"
           name="name"
           required
@@ -18,10 +18,10 @@ export default function SignUpForm({ onLogInClick }) {
         />
       </label>
 
-      <label className="flex flex-col text-[1rem] text-[#222]">
+      <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Email:
         <input
-          className="mt-[6px] p-2 border border-[#bbb] rounded text-[1rem]"
+          className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]"
           type="email"
           name="email"
           required
@@ -29,10 +29,10 @@ export default function SignUpForm({ onLogInClick }) {
         />
       </label>
 
-      <label className="flex flex-col text-[1rem] text-[#222]">
+      <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Password:
         <input
-          className="mt-[6px] p-2 border border-[#bbb] rounded text-[1rem]"
+          className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]"
           type="password"
           name="password"
           required
@@ -40,10 +40,10 @@ export default function SignUpForm({ onLogInClick }) {
         />
       </label>
 
-      <label className="flex flex-col text-[1rem] text-[#222]">
+      <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Confirm Password:
         <input
-          className="mt-[6px] p-2 border border-[#bbb] rounded text-[1rem]"
+          className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]"
           type="password"
           name="confirmPassword"
           required
@@ -53,14 +53,14 @@ export default function SignUpForm({ onLogInClick }) {
 
       <button
         type="submit"
-        className="mt-3 py-[10px] bg-[#222] text-white rounded text-[1.1rem] cursor-pointer font-bold"
+        className="mt-3 py-[10px] bg-[#5C3A2E] text-[#E9D3BE] rounded text-[1.1rem] cursor-pointer font-bold"
       >
         Submit
       </button>
 
       <button
         type="button"
-        className="mt-[10px] py-2 bg-[#eee] text-[#222] rounded text-[1rem] cursor-pointer font-bold w-full"
+        className="mt-[10px] py-2 bg-transparent text-[#5C3A2E] rounded text-[1rem] cursor-pointer font-bold w-full border border-[#5C3A2E]"
         onClick={onLogInClick}
       >
         Log-In

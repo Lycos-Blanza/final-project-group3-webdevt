@@ -44,7 +44,10 @@ export function AuthProvider({ children }) {
 
   const addReservation = (reservation) => {
     if (!user?.email) return;
-    const updated = [...reservations, reservation];
+    const updated = [
+      ...reservations,
+      { ...reservation, status: 'processing' }
+    ];
     setReservations(user.email, updated);
     setReservationsState(updated);
   };

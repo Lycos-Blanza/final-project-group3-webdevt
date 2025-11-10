@@ -22,41 +22,41 @@ export default function LogInForm({ onSignUpClick }) {
 
   return (
     <form className="flex flex-col gap-[18px]" onSubmit={handleSubmit}>
-      <label className="flex flex-col text-[1rem] text-[#222]">
+      <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Email:
         <input
           type="email"
           name="email"
           required
           autoComplete="username"
-          className="mt-[6px] p-[8px] border border-[#bbb] rounded-[4px] text-[1rem]"
+          className="mt-[6px] p-[8px] border border-[#5C3A2E] rounded-[4px] text-[1rem] bg-[#E9D3BE]"
         />
       </label>
 
-      <label className="flex flex-col text-[1rem] text-[#222]">
+      <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Password:
         <input
           type="password"
           name="password"
           required
           autoComplete="current-password"
-          className="mt-[6px] p-[8px] border border-[#bbb] rounded-[4px] text-[1rem]"
+          className="mt-[6px] p-[8px] border border-[#5C3A2E] rounded-[4px] text-[1rem] bg-[#E9D3BE]"
         />
       </label>
 
       <button
         type="submit"
-        className="mt-[12px] py-[10px] bg-[#222] text-white rounded-[4px] text-[1.1rem] font-bold cursor-pointer"
+        className="mt-[12px] py-[10px] bg-[#5C3A2E] text-[#E9D3BE] rounded-[4px] text-[1.1rem] font-bold cursor-pointer"
       >
-        Submit
+        Log-in
       </button>
 
       <button
         type="button"
-        className="mt-[10px] py-[8px] bg-[#eee] text-[#222] rounded-[4px] text-[1rem] font-bold cursor-pointer w-full"
+        className="mt-[10px] py-[8px] bg-transparent text-[#5C3A2E] rounded-[4px] text-[1rem] font-bold cursor-pointer w-full border border-[#5C3A2E]"
         onClick={onSignUpClick}
       >
-        Sign In
+        Sign-up
       </button>
 
       {error && (
