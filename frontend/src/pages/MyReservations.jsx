@@ -1,42 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
-import CancelReservationModal from "../components/CancelReservationModal";
+import CancelReservationButton from "../components/CancelReservationButton"; // Add new import
 
 export default function MyReservations() {
-  const { user, reservations, removeReservation } = useAuth();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
-
-  const handleCancelClick = (id) => {
-    setSelectedId(id);
-    setModalOpen(true);
-  };
-
-  const handleConfirm = () => {
-    removeReservation(selectedId);
-    setModalOpen(false);
-    setSelectedId(null);
-  };
-
-  const handleClose = () => {
-    setModalOpen(false);
-    setSelectedId(null);
-  };
+  const { user, reservations } = useAuth();
 
   return (
     <>
-      {/* <Topbar /> */} {/* Remove this line */}
-
-      <CancelReservationModal
-        open={modalOpen}
-        onClose={handleClose}
-        onConfirm={handleConfirm}
-      />
-
-      {/* page container */}
       <div className="pt-[56px] mx-auto max-w-[1200px] px-4 bg-[#f6f0e7] min-h-screen relative">
-
         <div className="flex justify-center items-start pt-20 pb-20">
           <div
             className="
@@ -76,12 +48,7 @@ export default function MyReservations() {
                         : res.status === 'rejected' ? 'text-red-600 font-semibold'
                         : 'text-yellow-600 font-semibold'
                       }>{res.status || 'processing'}</span></span>
-                      <button
-                        className="ml-4 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
-                        onClick={() => handleCancelClick(res.id)}
-                      >
-                        Cancel
-                      </button>
+                      <CancelReservationButton reservationId={res.id} />
                     </div>
                     {res.note && (
                       <div className="text-gray-700 text-[1rem] pl-2">

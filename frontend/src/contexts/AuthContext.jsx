@@ -11,6 +11,21 @@ function setReservations(email, reservations) {
   localStorage.setItem(`reservations_${email}`, JSON.stringify(reservations));
 }
 
+function getAllReservations() {
+  const all = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.startsWith('reservations_')) {
+      const email = key.replace('reservations_', '');
+      const reservations = JSON.parse(localStorage.getItem(key));
+      reservations.forEach(res => {
+        all.push({ ...res, email });
+      });
+    }
+  }
+  return all;
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [reservations, setReservationsState] = useState([]);
@@ -66,7 +81,8 @@ export function AuthProvider({ children }) {
       logout,
       reservations,
       addReservation,
-      removeReservation
+      removeReservation,
+      getAllReservations
     }}>
       {children}
     </AuthContext.Provider>
