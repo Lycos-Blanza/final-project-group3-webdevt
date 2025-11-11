@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 
-// Helper to get all reservations with status
 function getAllReservations() {
   const reservations = [];
   for (let i = 0; i < localStorage.length; i++) {
@@ -17,7 +16,6 @@ function getAllReservations() {
   return reservations;
 }
 
-// Helper to update reservation status in localStorage
 function updateReservationStatus(email, id, newStatus) {
   const key = `reservations_${email}`;
   const reservations = JSON.parse(localStorage.getItem(key)) || [];
@@ -32,12 +30,12 @@ export default function Dashboard() {
   const [allReservations, setAllReservations] = useState([]);
 
   useEffect(() => {
-    setAllReservations(getAllReservations());
+    setAllReservations(getAllReservations().filter(r => r.status !== 'cancelled'));
   }, []);
 
   function handleStatusChange(email, id, newStatus) {
     updateReservationStatus(email, id, newStatus);
-    setAllReservations(getAllReservations());
+    setAllReservations(getAllReservations().filter(r => r.status !== 'cancelled'));
   }
 
   if (!user || user.role !== 'admin') {

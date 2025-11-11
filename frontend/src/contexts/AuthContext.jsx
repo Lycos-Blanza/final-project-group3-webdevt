@@ -32,7 +32,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (user?.email) {
-      setReservationsState(getReservations(user.email));
+      setReservationsState(getReservations(user.email).filter(res => res.status !== 'cancelled'));
     } else {
       setReservationsState([]);
     }
@@ -69,9 +69,11 @@ export function AuthProvider({ children }) {
 
   const removeReservation = (id) => {
     if (!user?.email) return;
-    const updated = reservations.filter(res => res.id !== id);
-    setReservations(user.email, updated);
-    setReservationsState(updated);
+    const all = getReservations(user.email).map(res =>
+      res.id === id ? { ...res, status: 'cancelled' } : res
+    );
+    setReservations(user.email, all);
+    setReservationsState(all.filter(res => res.status !== 'cancelled'));
   };
 
   return (
