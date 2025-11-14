@@ -9,7 +9,7 @@ export default function Messages() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-50 py-8">
+    <div className="flex flex-col items-center min-h-screen bg-gray-50 py-8 mt-[64px]">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-2xl">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">Contact Messages</h2>
         {messages.length === 0 ? (
