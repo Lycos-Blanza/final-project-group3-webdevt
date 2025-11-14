@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+#root {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+:root {
+  --headline-font: "Staatliches", sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
