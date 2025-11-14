@@ -61,7 +61,9 @@ export default function MyReservations() {
                       {!["approved", "rejected"].includes(res.status) && (
                         <CancelReservationButton reservationId={res.id} />
                       )}
-                      <UpdateReservationButton reservation={res} /> {/* Add here */}
+                      {res.status !== "rejected" && (
+                        <UpdateReservationButton reservation={res} /> 
+                      )}
                     </div>
                     {res.note && (
                       <div className="text-gray-700 text-[1rem] pl-2">
