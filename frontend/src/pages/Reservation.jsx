@@ -10,18 +10,34 @@ export default function Reservation() {
   const [time, setTime] = useState('');
   const [guests, setGuests] = useState(1);
   const [note, setNote] = useState('');
+  
+  const today = new Date().toISOString().split('T')[0];
+
+  // Helper to add 1.5 hours to a time string (HH:mm)
+  function addOneAndHalfHours(timeStr) {
+    const [h, m] = timeStr.split(':').map(Number);
+    const date = new Date(0, 0, 0, h, m);
+    date.setMinutes(date.getMinutes() + 90);
+    return date.toTimeString().slice(0,5);
+  }
+
+  // Latest allowed start time so reservation ends at/before 22:30
+  const minTime = "07:30";
+  const maxTime = "21:00";
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const endTime = addOneAndHalfHours(time);
     const newReservation = {
       id: Date.now(),
       date,
       time,
+      endTime,
       guests: Number(guests),
       note
     };
     addReservation(newReservation);
-    alert(`Reserved for ${guests} guest(s) on ${date} at ${time}`);
+    alert(`Reserved for ${guests} guest(s) on ${date} from ${time} to ${endTime}`);
 
     setDate('');
     setTime('');
@@ -52,6 +68,7 @@ export default function Reservation() {
                     value={date}
                     onChange={e => setDate(e.target.value)}
                     required
+                    min={today}
                     className="mt-2 p-2 border border-gray-300 rounded-lg"
                   />
                 </label>
@@ -63,8 +80,15 @@ export default function Reservation() {
                     value={time}
                     onChange={e => setTime(e.target.value)}
                     required
+                    min={minTime}
+                    max={maxTime}
                     className="mt-2 p-2 border border-gray-300 rounded-lg"
                   />
+                  {time && (
+                    <span className="text-sm text-gray-600 mt-1">
+                      Reservation block: {time} - {addOneAndHalfHours(time)}
+                    </span>
+                  )}
                 </label>
 
                 <label className="flex flex-col text-left font-medium">

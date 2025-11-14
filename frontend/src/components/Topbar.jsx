@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import HamburgerMenu from "./HamburgerMenu";
 import Sidebar from "./Sidebar";
+import { useNavigate } from "react-router-dom";
 
 export default function Topbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -19,15 +21,21 @@ export default function Topbar() {
     z-[100]
   "
       >
-        <div
+        <button
           className="
             font-[var(--headline-font)]
             text-[1.75rem]
             tracking-[2px]
+            bg-transparent
+            border-none
+            cursor-pointer
+            text-white
+            p-0
           "
+          onClick={() => navigate("/")}
         >
           DINER28
-        </div>
+        </button>
 
         <div className="flex-1" />
 

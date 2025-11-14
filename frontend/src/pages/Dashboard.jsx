@@ -76,7 +76,9 @@ export default function Dashboard() {
                   <tr key={r.id || idx} className="border-b">
                     <td className="py-2 px-4">{r.email}</td>
                     <td className="py-2 px-4">{r.date}</td>
-                    <td className="py-2 px-4">{r.time}</td>
+                    <td className="py-2 px-4">
+                      {r.time} - {r.endTime || <span className="text-gray-400 italic">?</span>}
+                    </td>
                     <td className="py-2 px-4">{r.guests}</td>
                     <td className="py-2 px-4">{r.note || <span className="text-gray-400 italic">No note</span>}</td>
                     <td className="py-2 px-4">

@@ -41,7 +41,10 @@ export default function MyReservations() {
                   >
                     <div className="flex gap-8 items-center">
                       <span>Date: {res.date}</span>
-                      <span>Time: {res.time}</span>
+                      <span>
+                        Time: {res.time}
+                        {res.endTime ? ` - ${res.endTime}` : ''}
+                      </span>
                       <span>Guests: {res.guests}</span>
                       <span>Status: <span className={
                         res.status === 'approved' ? 'text-green-600 font-semibold'

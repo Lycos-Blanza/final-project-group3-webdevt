@@ -39,7 +39,9 @@ export default function History() {
                   <td className="py-2 px-4 border-b">{res.id || '-'}</td>
                   <td className="py-2 px-4 border-b">{res.email}</td>
                   <td className="py-2 px-4 border-b">{res.date || '-'}</td>
-                  <td className="py-2 px-4 border-b">{res.time || '-'}</td>
+                  <td className="py-2 px-4 border-b">
+                    {res.time || '-'}{res.endTime ? ` - ${res.endTime}` : ''}
+                  </td>
                   <td className="py-2 px-4 border-b">{res.guests || '-'}</td>
                   <td className="py-2 px-4 border-b">{res.note || '-'}</td>
                   <td className="py-2 px-4 border-b">{res.status}</td>
