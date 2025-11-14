@@ -55,10 +55,11 @@ export default function Homepage() {
                 onClick={handleExploreClick}
                 className="
                   py-[0.7rem] px-[2.2rem]
-                  text-[1.15rem] font-bold text-white
-                  bg-[#6d4c1b] rounded-[32px]
+                  text-[1.15rem] font-bold
+                  text-[#222222]
+                  bg-[#E9D3BE] rounded-[32px]
                   shadow-md
-                  hover:bg-[#8a6426] hover:scale-[1.05]
+                  hover:scale-[1.05]
                   transition-all
                 "
               >
@@ -69,10 +70,11 @@ export default function Homepage() {
                 onClick={() => navigate("/reserve")}
                 className="
                   py-[0.7rem] px-[2.2rem]
-                  text-[1.15rem] font-bold text-white
-                  bg-[#6d4c1b] rounded-[32px]
+                  text-[1.15rem] font-bold
+                  bg-[#6D3811] rounded-[32px]
+                  text-[#FFFFFF]
                   shadow-md
-                  hover:bg-[#8a6426] hover:scale-[1.05]
+                  hover:scale-[1.05]
                   transition-all
                 "
               >
