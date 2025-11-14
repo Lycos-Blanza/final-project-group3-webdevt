@@ -44,25 +44,25 @@ export default function SignUpForm({ onLogInClick }) {
     <form onSubmit={handleSubmit} className="flex flex-col gap-[18px]">
       <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Name:
-        <input required name="name" className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
+        <input required name="name" className="mt-1.5 p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
       </label>
       <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Email:
-        <input required type="email" name="email" className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
+        <input required type="email" name="email" className="mt-1.5 p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
       </label>
       <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Password:
-        <input required type="password" name="password" className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
+        <input required type="password" name="password" className="mt-1.5 p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
       </label>
       <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Confirm:
-        <input required type="password" name="confirmPassword" className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
+        <input required type="password" name="confirmPassword" className="mt-1.5 p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
       </label>
       {error && <div className="text-red-600 text-sm">{error}</div>}
-      <button type="submit" disabled={loading} className="mt-3 py-[10px] bg-[#5C3A2E] text-[#E9D3BE] rounded text-[1.1rem] font-bold">
+      <button type="submit" disabled={loading} className="mt-3 py-2.5 bg-[#5C3A2E] text-[#E9D3BE] rounded text-[1.1rem] font-bold">
         {loading ? 'Creating...' : 'Sign Up'}
       </button>
-      <button type="button" onClick={onLogInClick} className="mt-[10px] py-2 bg-transparent text-[#5C3A2E] rounded text-[1rem] font-bold w-full border border-[#5C3A2E]">
+      <button type="button" onClick={onLogInClick} className="mt-2.5 py-2 bg-transparent text-[#5C3A2E] rounded text-[1rem] font-bold w-full border border-[#5C3A2E]">
         Log In
       </button>
     </form>
