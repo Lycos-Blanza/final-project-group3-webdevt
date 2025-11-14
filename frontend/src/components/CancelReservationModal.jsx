@@ -9,16 +9,16 @@ export default function CancelReservationModal({ open, onClose, onConfirm }) {
         <p className="mb-4 text-gray-700">Are you sure you want to cancel this reservation?</p>
         <div className="flex justify-end gap-3">
           <button
-            className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
-            onClick={onClose}
-          >
-            No, keep
-          </button>
-          <button
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            className="px-4 py-2 flex-1 font-bold cursor-pointer bg-red-600 text-white rounded hover:bg-red-700"
             onClick={onConfirm}
           >
             Yes, cancel
+          </button>
+          <button
+            className="px-4 py-2 bg-gray-200 cursor-pointer text-gray-800 rounded hover:bg-gray-300"
+            onClick={onClose}
+          >
+            No, keep
           </button>
         </div>
       </div>
