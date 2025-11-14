@@ -129,7 +129,7 @@ export default function SidebarMenu({ onClose }) {
       <hr className="w-full border-0 border-t border-[#ddd] my-4" />
 
       <button
-        className="bg-[#e74c3c] text-white border-0 py-[10px] px-[18px] rounded cursor-pointer text-[1em] hover:bg-[#c0392b]"
+        className="bg-[#6D3811] text-[#E9D3BE] bold border-0 py-[10px] px-[18px] rounded cursor-pointer text-[1em] shadow w-full"
         onClick={handleLogout}
       >
         Logout
