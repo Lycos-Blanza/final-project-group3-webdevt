@@ -24,9 +24,9 @@ export default function ReservationStatusUpdater({ status, onUpdate, STATUS }) {
       </select>
       <button
         onClick={handleUpdateClick}
-        className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition"
+        className="bg-[#6D3811] text-white font-bold px-3 py-1 rounded cursor-pointer transition"
       >
-        UPDATE
+        Update
       </button>
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-30">
@@ -37,16 +37,16 @@ export default function ReservationStatusUpdater({ status, onUpdate, STATUS }) {
             </p>
             <div className="flex justify-end gap-2">
               <button
-                onClick={handleCancel}
-                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
-              >
-                Cancel
-              </button>
-              <button
                 onClick={handleConfirm}
-                className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+                className="px-4 py-2 rounded bg-[#6D3811] font-bold text-white cursor-pointer flex-1"
               >
                 Confirm
+              </button>
+              <button
+                onClick={handleCancel}
+                className="px-4 py-2 rounded bg-gray-300 cursor-pointer"
+              >
+                Cancel
               </button>
             </div>
           </div>
