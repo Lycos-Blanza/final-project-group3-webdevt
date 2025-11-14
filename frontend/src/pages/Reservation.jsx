@@ -56,20 +56,20 @@ export default function Reservation() {
         <h2 className="text-2xl font-bold mb-6">Make Reservation</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label>Date</label>
+            <label>Date*</label>
             <input type="date" value={date} onChange={e => setDate(e.target.value)} min={today} required className="w-full p-2 border rounded" />
           </div>
           <div>
-            <label>Time</label>
+            <label>Time*</label>
             <input type="time" value={time} onChange={e => setTime(e.target.value)} min={minTime} max={maxTime} required className="w-full p-2 border rounded" />
             {time && <small>Ends: {addOneAndHalfHours(time)}</small>}
           </div>
           <div>
-            <label>Guests</label>
+            <label>Guests*</label>
             <input type="number" value={guests} onChange={e => setGuests(e.target.value)} min="1" max="20" required className="w-full p-2 border rounded" />
           </div>
           <div>
-            <label>Table</label>
+            <label>Table*</label>
             <select value={tableId} onChange={e => setTableId(e.target.value)} required className="w-full p-2 border rounded">
               <option value="">Select Table</option>
               {tables.map(t => (
@@ -81,7 +81,7 @@ export default function Reservation() {
             <label>Note</label>
             <textarea value={note} onChange={e => setNote(e.target.value)} className="w-full p-2 border rounded" rows="2" />
           </div>
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded font-bold">Reserve & Pay</button>
+          <button type="submit" className="w-full bg-[#6D3811] cursor-pointer text-white py-2 rounded font-bold">Reserve & Pay</button>
         </form>
       </div>
       {showPayment && <PaymentModal reservation={pendingRes} onSuccess={handlePaymentSuccess} onClose={() => setShowPayment(false)} />}
