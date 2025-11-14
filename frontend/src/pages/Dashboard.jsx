@@ -54,24 +54,26 @@ export default function Dashboard() {
                 </td>
               </tr>
             ) : (
-              allReservations.map((r) => (
-                <tr key={r.id} className="border-b last:border-b-0 hover:bg-gray-50 transition">
-                  <td className="py-3 px-4">{r.email}</td>
-                  <td className="py-3 px-4">{r.date}</td>
-                  <td className="py-3 px-4">
-                    {r.time} - {r.endTime || <span className="text-gray-400 italic">?</span>}
-                  </td>
-                  <td className="py-3 px-4">{r.guests}</td>
-                  <td className="py-3 px-4">{r.note || <span className="text-gray-400 italic">No note</span>}</td>
-                  <td className="py-3 px-4">
-                    <ReservationStatusUpdater
-                      status={r.status}
-                      STATUS={STATUS}
-                      onUpdate={newStatus => updateReservationStatus(r.email, r.id, newStatus)}
-                    />
-                  </td>
-                </tr>
-              ))
+              allReservations
+                .filter(r => r.status !== STATUS.CANCELED)
+                .map((r) => (
+                  <tr key={r.id} className="border-b last:border-b-0 hover:bg-gray-50 transition">
+                    <td className="py-3 px-4">{r.email}</td>
+                    <td className="py-3 px-4">{r.date}</td>
+                    <td className="py-3 px-4">
+                      {r.time} - {r.endTime || <span className="text-gray-400 italic">?</span>}
+                    </td>
+                    <td className="py-3 px-4">{r.guests}</td>
+                    <td className="py-3 px-4">{r.note || <span className="text-gray-400 italic">No note</span>}</td>
+                    <td className="py-3 px-4">
+                      <ReservationStatusUpdater
+                        status={r.status}
+                        STATUS={STATUS}
+                        onUpdate={newStatus => updateReservationStatus(r.email, r.id, newStatus)}
+                      />
+                    </td>
+                  </tr>
+                ))
             )}
           </tbody>
         </table>
