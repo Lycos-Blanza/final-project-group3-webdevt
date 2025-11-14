@@ -1,6 +1,6 @@
-import React from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function SidebarMenu({ onClose }) {
   const { user, logout } = useAuth();
@@ -8,12 +8,12 @@ export default function SidebarMenu({ onClose }) {
 
   function handleLogout() {
     logout();
-    navigate('/');
+    navigate("/");
     if (onClose) onClose();
   }
 
   function handleHomeClick() {
-    navigate('/');
+    navigate("/");
     if (onClose) onClose();
   }
 
@@ -24,7 +24,7 @@ export default function SidebarMenu({ onClose }) {
       </div>
 
       <ul className="list-none p-0 m-0 mb-4 w-full">
-        {user?.role === 'admin' ? (
+        {user?.role === "admin" ? (
           <>
             <li>
               <button
@@ -38,7 +38,7 @@ export default function SidebarMenu({ onClose }) {
               <button
                 className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
                 onClick={() => {
-                  navigate('/dashboard');
+                  navigate("/dashboard");
                   if (onClose) onClose();
                 }}
               >
@@ -49,7 +49,7 @@ export default function SidebarMenu({ onClose }) {
               <button
                 className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
                 onClick={() => {
-                  navigate('/messages');
+                  navigate("/messages");
                   if (onClose) onClose();
                 }}
               >
@@ -58,9 +58,20 @@ export default function SidebarMenu({ onClose }) {
             </li>
             <li>
               <button
+                onClick={() => {
+                  navigate("/admin-tables");
+                  if (onClose) onClose();
+                }}
+                className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
+              >
+                Manage Tables
+              </button>
+            </li>
+            <li>
+              <button
                 className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
                 onClick={() => {
-                  navigate('/history');
+                  navigate("/history");
                   if (onClose) onClose();
                 }}
               >
@@ -82,7 +93,7 @@ export default function SidebarMenu({ onClose }) {
               <button
                 className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
                 onClick={() => {
-                  navigate('/my-reservations');
+                  navigate("/my-reservations");
                   if (onClose) onClose();
                 }}
               >
@@ -93,7 +104,7 @@ export default function SidebarMenu({ onClose }) {
               <button
                 className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
                 onClick={() => {
-                  navigate('/my-history');
+                  navigate("/my-history");
                   if (onClose) onClose();
                 }}
               >
@@ -104,7 +115,7 @@ export default function SidebarMenu({ onClose }) {
               <button
                 className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
                 onClick={() => {
-                  navigate('/contact-us');
+                  navigate("/contact-us");
                   if (onClose) onClose();
                 }}
               >

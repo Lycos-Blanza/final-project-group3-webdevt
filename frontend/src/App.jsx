@@ -11,6 +11,7 @@ import ContactUs from "./pages/ContactUs";
 import Messages from "./pages/Messages";
 import History from "./pages/History";
 import MyHistory from "./pages/MyHistory";
+import AdminTables from './pages/AdminTables';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/messages" element={<Messages />} />
             <Route path="/history" element={<History />} />
             <Route path="/my-history" element={<MyHistory />} />
+            <Route path="/admin-tables" element={<AdminTables />} />
           </Routes>
         </Router>
       </TablesProvider>
