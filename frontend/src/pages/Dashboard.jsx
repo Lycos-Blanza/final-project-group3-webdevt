@@ -1,6 +1,7 @@
 // src/pages/Dashboard.jsx
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import ReservationStatusUpdater from '../components/ReservationStatusUpdater';
 
 export default function Dashboard() {
   const { user, getAllReservations, STATUS } = useAuth();
@@ -63,15 +64,11 @@ export default function Dashboard() {
                   <td className="py-3 px-4">{r.guests}</td>
                   <td className="py-3 px-4">{r.note || <span className="text-gray-400 italic">No note</span>}</td>
                   <td className="py-3 px-4">
-                    <select
-                      value={r.status}
-                      onChange={e => updateReservationStatus(r.email, r.id, e.target.value)}
-                      className="border border-gray-300 rounded px-2 py-1 bg-white focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value={STATUS.PENDING}>Pending</option>
-                      <option value={STATUS.CONFIRMED}>Confirmed</option>
-                      <option value={STATUS.CANCELED}>Canceled</option>
-                    </select>
+                    <ReservationStatusUpdater
+                      status={r.status}
+                      STATUS={STATUS}
+                      onUpdate={newStatus => updateReservationStatus(r.email, r.id, newStatus)}
+                    />
                   </td>
                 </tr>
               ))
