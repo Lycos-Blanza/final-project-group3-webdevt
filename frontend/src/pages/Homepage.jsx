@@ -42,6 +42,7 @@ export default function Homepage() {
                 leading-[0.9]
                 drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)]
                 max-[700px]:text-[3rem]
+                tex
               "
             >
               WELCOME TO
