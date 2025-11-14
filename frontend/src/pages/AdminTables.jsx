@@ -30,7 +30,7 @@ export default function AdminTables() {
   };
 
   return (
-    <div className="pt-[56px] p-6 max-w-4xl mx-auto">
+    <div className="pt-[56px] p-6 max-w-4xl mx-auto mt-[64px]">
       <h2 className="text-2xl font-bold mb-6">Manage Tables</h2>
 
       <form onSubmit={handleSubmit} className="mb-8 p-4 bg-white rounded shadow">
@@ -52,7 +52,7 @@ export default function AdminTables() {
             className="p-2 border rounded"
           />
         </div>
-        <button type="submit" className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+        <button type="submit" className="mt-4 px-4 py-2 bg-[#6D3811] text-white rounded cursor-pointer">
           {editingId ? 'Update' : 'Add'} Table
         </button>
         {editingId && (
@@ -74,8 +74,8 @@ export default function AdminTables() {
               <div className="text-sm text-gray-600">{table.capacity} seats</div>
             </div>
             <div className="flex gap-2">
-              <button onClick={() => startEdit(table)} className="text-blue-600 hover:underline">Edit</button>
-              <button onClick={() => deleteTable(table.id)} className="text-red-600 hover:underline">Delete</button>
+              <button onClick={() => startEdit(table)} className="text-[#6D3811] hover:underline cursor-pointer">Edit</button>
+              <button onClick={() => deleteTable(table.id)} className="text-red-600 hover:underline cursor-pointer">Delete</button>
             </div>
           </div>
         ))}
