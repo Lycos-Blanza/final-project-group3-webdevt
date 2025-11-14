@@ -26,8 +26,8 @@ export default function PaymentModal({ reservation, onSuccess, onClose }) {
           <option value="card">Card</option>
         </select>
         <div className="flex gap-2">
-          <button onClick={handlePay} className="flex-1 bg-green-600 text-white py-2 rounded">Pay Now</button>
-          <button onClick={onClose} className="flex-1 bg-gray-300 py-2 rounded">Cancel</button>
+          <button onClick={handlePay} className="flex-1 bg-[#6D3811] font-bold text-white py-2 rounded cursor-pointer">Pay Now</button>
+          <button onClick={onClose} className="w-20 bg-gray-300 py-2 rounded cursor-pointer">Cancel</button>
         </div>
       </div>
     </div>
