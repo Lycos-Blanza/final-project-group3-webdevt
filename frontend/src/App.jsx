@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard'
 import ContactUs from './pages/ContactUs'
 import Messages from './pages/Messages'
 import History from './pages/History'
+import MyHistory from './pages/MyHistory'
 import Topbar from './components/Topbar'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/history" element={<History />} />
+          <Route path="/my-history" element={<MyHistory />} />
         </Routes>
       </Router>
     </AuthProvider>

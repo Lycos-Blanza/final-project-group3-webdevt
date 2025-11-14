@@ -87,9 +87,9 @@ export default function Dashboard() {
                         onChange={e => handleStatusChange(r.email, r.id, e.target.value)}
                         className="border border-gray-300 rounded px-2 py-1 bg-white focus:ring-2 focus:ring-blue-500"
                       >
-                        <option value="processing">Processing</option>
-                        <option value="approved">Approved</option>
-                        <option value="rejected">Rejected</option>
+                        <option value="processing">Pending</option>
+                        <option value="approved">Confirm</option>
+                        <option value="rejected">Cancel</option>
                       </select>
                     </td>
                   </tr>

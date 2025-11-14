@@ -93,6 +93,17 @@ export default function SidebarMenu({ onClose }) {
               <button
                 className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
                 onClick={() => {
+                  navigate('/my-history');
+                  if (onClose) onClose();
+                }}
+              >
+                My History
+              </button>
+            </li>
+            <li>
+              <button
+                className="bg-none border-0 text-[#333] text-[1em] text-left py-2 w-full cursor-pointer hover:text-[#007bff]"
+                onClick={() => {
                   navigate('/contact-us');
                   if (onClose) onClose();
                 }}
