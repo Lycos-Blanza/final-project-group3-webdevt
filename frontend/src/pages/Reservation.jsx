@@ -1,136 +1,90 @@
+// src/pages/Reservation.jsx
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Link } from 'react-router-dom';
-
+import { useTables } from '../contexts/TablesContext';
+import { useAvailability } from '../hooks/useAvailability';
+import PaymentModal from '../components/PaymentModal';
 
 export default function Reservation() {
-  const { user, addReservation } = useAuth();
-
+  const { user, addReservation, STATUS } = useAuth();
+  const { tables } = useTables();
+  const { isSlotAvailable } = useAvailability();
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [guests, setGuests] = useState(1);
   const [note, setNote] = useState('');
-  
+  const [tableId, setTableId] = useState('');
+  const [showPayment, setShowPayment] = useState(false);
+  const [pendingRes, setPendingRes] = useState(null);
+
   const today = new Date().toISOString().split('T')[0];
+  const minTime = "07:30", maxTime = "21:00";
 
-  // Helper to add 1.5 hours to a time string (HH:mm)
-  function addOneAndHalfHours(timeStr) {
-    const [h, m] = timeStr.split(':').map(Number);
-    const date = new Date(0, 0, 0, h, m);
-    date.setMinutes(date.getMinutes() + 90);
-    return date.toTimeString().slice(0,5);
-  }
-
-  // Latest allowed start time so reservation ends at/before 22:30
-  const minTime = "07:30";
-  const maxTime = "21:00";
+  const addOneAndHalfHours = (t) => {
+    const [h, m] = t.split(':').map(Number);
+    const d = new Date(0, 0, 0, h, m);
+    d.setMinutes(d.getMinutes() + 90);
+    return d.toTimeString().slice(0,5);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const endTime = addOneAndHalfHours(time);
-    const newReservation = {
-      id: Date.now(),
-      date,
-      time,
-      endTime,
-      guests: Number(guests),
-      note
-    };
-    addReservation(newReservation);
-    alert(`Reserved for ${guests} guest(s) on ${date} from ${time} to ${endTime}`);
+    if (!isSlotAvailable(date, time, guests)) {
+      alert('Slot not available for selected guests');
+      return;
+    }
 
-    setDate('');
-    setTime('');
-    setGuests(1);
-    setNote('');
+    const endTime = addOneAndHalfHours(time);
+    const res = { date, time, endTime, guests: Number(guests), note, tableId: Number(tableId), status: STATUS.PENDING };
+    setPendingRes(res);
+    setShowPayment(true);
   };
 
+  const handlePaymentSuccess = () => {
+    addReservation({ ...pendingRes, id: Date.now() });
+    alert('Reservation confirmed! Payment received.');
+    setShowPayment(false);
+    setPendingRes(null);
+    setDate(''); setTime(''); setGuests(1); setNote(''); setTableId('');
+  };
+
+  if (!user) return <div className="p-8 text-center">Please login</div>;
+
   return (
-    <>
-      {/* page container */}
-      <div className="pt-[56px] mx-auto max-w-[1200px] px-4 bg-[#f6f0e7] min-h-screen relative">
-
-        {/* center content */}
-        <div className="flex justify-center items-start pt-20 pb-20">
-          <div className="text-[#222] bg-white rounded-2xl shadow-lg p-10 max-w-[450px] w-full">
-            <h2 className="text-2xl font-bold mb-8 text-center">Make a Reservation</h2>
-
-            {!user ? (
-              <div className="mt-8 text-red-700 font-medium text-lg bg-[#ffeaea] p-4 rounded-lg text-center">
-                You must <b>login</b> to access this feature.
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                <label className="flex flex-col text-left font-medium">
-                  Date:
-                  <input
-                    type="date"
-                    value={date}
-                    onChange={e => setDate(e.target.value)}
-                    required
-                    min={today}
-                    className="mt-2 p-2 border border-gray-300 rounded-lg"
-                  />
-                </label>
-
-                <label className="flex flex-col text-left font-medium">
-                  Time:
-                  <input
-                    type="time"
-                    value={time}
-                    onChange={e => setTime(e.target.value)}
-                    required
-                    min={minTime}
-                    max={maxTime}
-                    className="mt-2 p-2 border border-gray-300 rounded-lg"
-                  />
-                  {time && (
-                    <span className="text-sm text-gray-600 mt-1">
-                      Reservation block: {time} - {addOneAndHalfHours(time)}
-                    </span>
-                  )}
-                </label>
-
-                <label className="flex flex-col text-left font-medium">
-                  Number of Guests:
-                  <input
-                    type="number"
-                    min="1"
-                    max="20"
-                    value={guests}
-                    onChange={e => setGuests(e.target.value)}
-                    required
-                    className="mt-2 p-2 border border-gray-300 rounded-lg"
-                  />
-                </label>
-
-                <label className="flex flex-col text-left font-medium">
-                  Note (optional):
-                  <textarea
-                    value={note}
-                    onChange={e => setNote(e.target.value)}
-                    className="mt-2 p-2 border border-gray-300 rounded-lg resize-none"
-                    rows={3}
-                    placeholder="Add any special requests or notes..."
-                  />
-                </label>
-
-                <button
-                  type="submit"
-                  className="
-                    bg-brandBrown text-black font-bold text-lg tracking-wide
-                    rounded-full px-8 py-3 mt-6 shadow-md
-                    transition-transform
-                    hover:scale-105 hover:shadow-lg
-                  "
-                >
-                  RESERVE
-                </button>
-              </form>
-            )}
+    <div className="pt-[56px] p-4">
+      <div className="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h2 className="text-2xl font-bold mb-6">Make Reservation</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label>Date</label>
+            <input type="date" value={date} onChange={e => setDate(e.target.value)} min={today} required className="w-full p-2 border rounded" />
           </div>
-        </div>
+          <div>
+            <label>Time</label>
+            <input type="time" value={time} onChange={e => setTime(e.target.value)} min={minTime} max={maxTime} required className="w-full p-2 border rounded" />
+            {time && <small>Ends: {addOneAndHalfHours(time)}</small>}
+          </div>
+          <div>
+            <label>Guests</label>
+            <input type="number" value={guests} onChange={e => setGuests(e.target.value)} min="1" max="20" required className="w-full p-2 border rounded" />
+          </div>
+          <div>
+            <label>Table</label>
+            <select value={tableId} onChange={e => setTableId(e.target.value)} required className="w-full p-2 border rounded">
+              <option value="">Select Table</option>
+              {tables.map(t => (
+                <option key={t.id} value={t.id}>Table {t.number} ({t.capacity} seats)</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Note</label>
+            <textarea value={note} onChange={e => setNote(e.target.value)} className="w-full p-2 border rounded" rows="2" />
+          </div>
+          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded font-bold">Reserve & Pay</button>
+        </form>
       </div>
-    </>
+      {showPayment && <PaymentModal reservation={pendingRes} onSuccess={handlePaymentSuccess} onClose={() => setShowPayment(false)} />}
+    </div>
   );
 }

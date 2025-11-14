@@ -1,3 +1,4 @@
+// src/components/CancelReservationButton.jsx
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import CancelReservationModal from "./CancelReservationModal";
@@ -6,18 +7,12 @@ export default function CancelReservationButton({ reservationId }) {
   const { removeReservation } = useAuth();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleCancelClick = () => {
-    setModalOpen(true);
-  };
-
+  const handleCancelClick = () => setModalOpen(true);
   const handleConfirm = () => {
     removeReservation(reservationId);
     setModalOpen(false);
   };
-
-  const handleClose = () => {
-    setModalOpen(false);
-  };
+  const handleClose = () => setModalOpen(false);
 
   return (
     <>

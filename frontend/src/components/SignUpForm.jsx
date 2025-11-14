@@ -1,69 +1,69 @@
+// src/components/SignUpForm.jsx
+import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+
 export default function SignUpForm({ onLogInClick }) {
+  const { signup } = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirm = form.confirmPassword.value;
+
+    if (password !== confirm) {
+      setError('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setError('Invalid email');
+      setLoading(false);
+      return;
+    }
+    if (password.length < 4) {
+      setError('Password too short');
+      setLoading(false);
+      return;
+    }
+
+    const success = signup(name, email, password);
+    setLoading(false);
+    if (!success) {
+      setError('Email already exists');
+    }
+  };
+
   return (
-    <form
-      className="flex flex-col gap-[18px]"
-      onSubmit={e => {
-        e.preventDefault();
-        // handle signup here
-      }}
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col gap-[18px]">
       <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Name:
-        <input
-          className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]"
-          type="text"
-          name="name"
-          required
-          autoComplete="name"
-        />
+        <input required name="name" className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
       </label>
-
       <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Email:
-        <input
-          className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]"
-          type="email"
-          name="email"
-          required
-          autoComplete="username"
-        />
+        <input required type="email" name="email" className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
       </label>
-
       <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
         Password:
-        <input
-          className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]"
-          type="password"
-          name="password"
-          required
-          autoComplete="new-password"
-        />
+        <input required type="password" name="password" className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
       </label>
-
       <label className="flex flex-col text-[1rem] text-[#5C3A2E]">
-        Confirm Password:
-        <input
-          className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]"
-          type="password"
-          name="confirmPassword"
-          required
-          autoComplete="new-password"
-        />
+        Confirm:
+        <input required type="password" name="confirmPassword" className="mt-[6px] p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
       </label>
-
-      <button
-        type="submit"
-        className="mt-3 py-[10px] bg-[#5C3A2E] text-[#E9D3BE] rounded text-[1.1rem] cursor-pointer font-bold"
-      >
-        Submit
+      {error && <div className="text-red-600 text-sm">{error}</div>}
+      <button type="submit" disabled={loading} className="mt-3 py-[10px] bg-[#5C3A2E] text-[#E9D3BE] rounded text-[1.1rem] font-bold">
+        {loading ? 'Creating...' : 'Sign Up'}
       </button>
-
-      <button
-        type="button"
-        className="mt-[10px] py-2 bg-transparent text-[#5C3A2E] rounded text-[1rem] cursor-pointer font-bold w-full border border-[#5C3A2E]"
-        onClick={onLogInClick}
-      >
-        Log-In
+      <button type="button" onClick={onLogInClick} className="mt-[10px] py-2 bg-transparent text-[#5C3A2E] rounded text-[1rem] font-bold w-full border border-[#5C3A2E]">
+        Log In
       </button>
     </form>
   );
