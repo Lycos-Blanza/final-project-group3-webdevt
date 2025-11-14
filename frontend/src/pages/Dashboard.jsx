@@ -50,42 +50,42 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="pt-[56px] mx-auto max-w-[1200px] px-4 bg-[#f6f0e7] min-h-screen">
-        <h2 className="text-3xl font-bold mb-8 mt-10 text-center text-brandBrown">All Reservations</h2>
+      <div className="pt-[56px] mx-auto max-w-5xl px-4 bg-gray-50 min-h-screen">
+        <h2 className="text-3xl font-bold mb-8 mt-10 text-center text-gray-900">All Reservations</h2>
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white rounded-lg shadow-md">
+          <table className="min-w-full bg-white border border-gray-200 rounded-xl shadow-lg">
             <thead>
-              <tr className="bg-brandBrown text-white">
-                <th className="py-3 px-4 text-left">User Email</th>
-                <th className="py-3 px-4 text-left">Date</th>
-                <th className="py-3 px-4 text-left">Time</th>
-                <th className="py-3 px-4 text-left">Guests</th>
-                <th className="py-3 px-4 text-left">Note</th>
-                <th className="py-3 px-4 text-left">Status</th>
+              <tr className="bg-blue-600 text-white">
+                <th className="py-3 px-4 text-left font-semibold">User Email</th>
+                <th className="py-3 px-4 text-left font-semibold">Date</th>
+                <th className="py-3 px-4 text-left font-semibold">Time</th>
+                <th className="py-3 px-4 text-left font-semibold">Guests</th>
+                <th className="py-3 px-4 text-left font-semibold">Note</th>
+                <th className="py-3 px-4 text-left font-semibold">Status</th>
               </tr>
             </thead>
             <tbody>
               {allReservations.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-6 px-4 text-center text-gray-500">
+                  <td colSpan={6} className="py-8 px-4 text-center text-gray-500">
                     No reservations found.
                   </td>
                 </tr>
               ) : (
                 allReservations.map((r, idx) => (
-                  <tr key={r.id || idx} className="border-b">
-                    <td className="py-2 px-4">{r.email}</td>
-                    <td className="py-2 px-4">{r.date}</td>
-                    <td className="py-2 px-4">
+                  <tr key={r.id || idx} className="border-b last:border-b-0 hover:bg-gray-50 transition">
+                    <td className="py-3 px-4">{r.email}</td>
+                    <td className="py-3 px-4">{r.date}</td>
+                    <td className="py-3 px-4">
                       {r.time} - {r.endTime || <span className="text-gray-400 italic">?</span>}
                     </td>
-                    <td className="py-2 px-4">{r.guests}</td>
-                    <td className="py-2 px-4">{r.note || <span className="text-gray-400 italic">No note</span>}</td>
-                    <td className="py-2 px-4">
+                    <td className="py-3 px-4">{r.guests}</td>
+                    <td className="py-3 px-4">{r.note || <span className="text-gray-400 italic">No note</span>}</td>
+                    <td className="py-3 px-4">
                       <select
                         value={r.status || 'processing'}
                         onChange={e => handleStatusChange(r.email, r.id, e.target.value)}
-                        className="border rounded px-2 py-1 bg-white"
+                        className="border border-gray-300 rounded px-2 py-1 bg-white focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="processing">Processing</option>
                         <option value="approved">Approved</option>

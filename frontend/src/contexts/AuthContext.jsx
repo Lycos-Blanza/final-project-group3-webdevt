@@ -76,6 +76,17 @@ export function AuthProvider({ children }) {
     setReservationsState(all.filter(res => res.status !== 'cancelled'));
   };
 
+  const updateReservation = (updatedRes) => {
+    if (!user?.email) return;
+    const all = getReservations(user.email).map(res =>
+      res.id === updatedRes.id && !["approved", "rejected"].includes(res.status)
+        ? { ...res, ...updatedRes }
+        : res
+    );
+    setReservations(user.email, all);
+    setReservationsState(all.filter(res => res.status !== 'cancelled'));
+  };
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -84,7 +95,8 @@ export function AuthProvider({ children }) {
       reservations,
       addReservation,
       removeReservation,
-      getAllReservations
+      getAllReservations,
+      updateReservation
     }}>
       {children}
     </AuthContext.Provider>

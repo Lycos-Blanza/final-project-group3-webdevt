@@ -1,7 +1,8 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
-import CancelReservationButton from "../components/CancelReservationButton"; // Add new import
+import CancelReservationButton from "../components/CancelReservationButton";
+import UpdateReservationButton from "../components/UpdateReservationButton"; // Add import
 
 export default function MyReservations() {
   const { user, reservations } = useAuth();
@@ -43,7 +44,7 @@ export default function MyReservations() {
                       <span>Date: {res.date}</span>
                       <span>
                         Time: {res.time}
-                        {res.endTime ? ` - ${res.endTime}` : ''}
+                        {res.endTime ? ` - ${res.endTime}` : ""}
                       </span>
                       <span>Guests: {res.guests}</span>
                       <span>Status: <span className={
@@ -52,6 +53,7 @@ export default function MyReservations() {
                         : 'text-yellow-600 font-semibold'
                       }>{res.status || 'processing'}</span></span>
                       <CancelReservationButton reservationId={res.id} />
+                      <UpdateReservationButton reservation={res} /> {/* Add here */}
                     </div>
                     {res.note && (
                       <div className="text-gray-700 text-[1rem] pl-2">
