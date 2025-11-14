@@ -40,12 +40,12 @@ export default function UpdateReservationButton({ reservation }) {
   return (
     <>
       <button
-        className="ml-2 px-3 py-1 rounded bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+        className="ml-4 px-3 py-1 bg-[#6D3811] text-white rounded transition w-16 cursor-pointer"
         onClick={() => setOpen(true)}
         disabled={!canUpdate}
         title={canUpdate ? "Update reservation" : "Cannot update after confirmation"}
       >
-        Update
+        Edit
       </button>
       {open && (
         <div
@@ -110,13 +110,13 @@ export default function UpdateReservationButton({ reservation }) {
             <div className="flex gap-2 mt-2">
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-4 py-2 rounded font-semibold hover:bg-blue-700"
+                className="flex-1 bg-[#6D3811] text-white px-4 py-2 rounded font-semibold cursor-pointer"
               >
                 Save
               </button>
               <button
                 type="button"
-                className="bg-gray-300 px-4 py-2 rounded font-semibold"
+                className="bg-gray-300 px-4 py-2 rounded font-semibold cursor-pointer"
                 onClick={() => setOpen(false)}
               >
                 Cancel
