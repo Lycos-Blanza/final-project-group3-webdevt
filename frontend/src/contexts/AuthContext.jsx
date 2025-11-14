@@ -32,7 +32,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (user?.email) {
-      setReservationsState(getReservations(user.email).filter(res => res.status !== 'Canceled'));
+      setReservationsState(getReservations(user.email));
     } else {
       setReservationsState([]);
     }
@@ -73,18 +73,18 @@ export function AuthProvider({ children }) {
       res.id === id ? { ...res, status: 'Canceled' } : res
     );
     setReservations(user.email, all);
-    setReservationsState(all.filter(res => res.status !== 'Canceled'));
+    setReservationsState(all);
   };
 
   const updateReservation = (updatedRes) => {
     if (!user?.email) return;
     const all = getReservations(user.email).map(res =>
-      res.id === updatedRes.id && !["Confirmed", "Canceled"].includes(res.status)
+      res.id === updatedRes.id && res.status === "Pending"
         ? { ...res, ...updatedRes }
         : res
     );
     setReservations(user.email, all);
-    setReservationsState(all.filter(res => res.status !== 'Canceled'));
+    setReservationsState(all);
   };
 
   return (
