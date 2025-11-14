@@ -6,7 +6,7 @@ export default function History() {
 
   if (!user || user.role !== 'admin') {
     return (
-      <div className="p-8 text-center text-red-500">
+      <div className="p-8 text-center text-red-500 mt-[64px]">
         Access denied. Admins only.
       </div>
     );
@@ -15,7 +15,7 @@ export default function History() {
   const reservations = getAllReservations();
 
   return (
-    <div className="p-8">
+    <div className="p-8 mt-[64px]">
       <h1 className="text-2xl font-bold mb-6">All Reservations History</h1>
       {reservations.length === 0 ? (
         <div className="text-gray-500">No reservations found.</div>
