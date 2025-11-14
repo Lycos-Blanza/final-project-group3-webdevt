@@ -37,7 +37,7 @@ export default function Dashboard() {
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-200 rounded-xl shadow-lg">
           <thead>
-            <tr className="bg-blue-600 text-white">
+            <tr className="bg-[#6d4c1b] text-white">
               <th className="py-3 px-4 text-left font-semibold">User Email</th>
               <th className="py-3 px-4 text-left font-semibold">Date</th>
               <th className="py-3 px-4 text-left font-semibold">Time</th>
