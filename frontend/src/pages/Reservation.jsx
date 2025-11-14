@@ -118,7 +118,7 @@ export default function Reservation() {
                 <button
                   type="submit"
                   className="
-                    bg-brandBrown text-white font-bold text-lg tracking-wide
+                    bg-brandBrown text-black font-bold text-lg tracking-wide
                     rounded-full px-8 py-3 mt-6 shadow-md
                     transition-transform
                     hover:scale-105 hover:shadow-lg

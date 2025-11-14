@@ -51,8 +51,16 @@ export default function MyReservations() {
                         res.status === 'approved' ? 'text-green-600 font-semibold'
                         : res.status === 'rejected' ? 'text-red-600 font-semibold'
                         : 'text-yellow-600 font-semibold'
-                      }>{res.status || 'processing'}</span></span>
-                      <CancelReservationButton reservationId={res.id} />
+                      }>
+                        {
+                          res.status === 'approved' ? 'Confirmed'
+                          : res.status === 'rejected' ? 'Canceled'
+                          : 'Pending'
+                        }
+                      </span></span>
+                      {!["approved", "rejected"].includes(res.status) && (
+                        <CancelReservationButton reservationId={res.id} />
+                      )}
                       <UpdateReservationButton reservation={res} /> {/* Add here */}
                     </div>
                     {res.note && (

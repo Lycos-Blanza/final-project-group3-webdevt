@@ -34,8 +34,8 @@ export default function UpdateReservationButton({ reservation }) {
     setOpen(false);
   };
 
-  // Only allow update if not approved/rejected
-  const canUpdate = !["approved", "rejected"].includes(reservation.status);
+  // Only allow update if not Confirmed/Canceled
+  const canUpdate = !["Confirmed", "Canceled"].includes(reservation.status);
 
   return (
     <>
@@ -48,7 +48,10 @@ export default function UpdateReservationButton({ reservation }) {
         Update
       </button>
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ background: "rgba(0,0,0,0.5)" }}
+        >
           <form
             onSubmit={handleUpdate}
             className="bg-white rounded-lg shadow-lg p-6 min-w-[320px] flex flex-col gap-4"
