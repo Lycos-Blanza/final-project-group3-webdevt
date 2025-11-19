@@ -43,7 +43,9 @@ export default function MyProfile() {
           </div>
         </div>
 
-        <ProfileForm />
+        {/* ←←← ONLY ADDED THIS LINE — passes user to ProfileForm */}
+        <ProfileForm user={user} />
+        {/* ←←← That's the only change in this file! */}
       </div>
     </div>
   );
