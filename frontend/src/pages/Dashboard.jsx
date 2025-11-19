@@ -188,7 +188,7 @@ export default function Dashboard() {
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6D3811" className="bi bi-stickies-fill" viewBox="0 0 16 16">
                       <path d="M3 0a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h6.5a.5.5 0 0 0 .354-.146l4-4A.5.5 0 0 0 14 9.5V2a2 2 0 0 0-2-2H3zm7 11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v7.5a.5.5 0 0 1-.146.354l-4 4A.5.5 0 0 1 7.5 14H3a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v7.5a.5.5 0 0 1-.146.354l-4 4A.5.5 0 0 1 7.5 14H3z"/>
                     </svg>
-                    <span>{res.notes || "No notes"}</span>
+                    <span>{res.note ? res.note : "No notes"}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-[#6D3811] mb-2">
                     {/* Pending SVG (Hourglass) */}
@@ -242,6 +242,10 @@ export default function Dashboard() {
               <div>
                 <p className="font-medium">{res.email}</p>
                 <p className="text-sm text-gray-600">{res.date} {res.time} • {res.guests} guests</p>
+                {/* Show note if present */}
+                {res.note && (
+                  <p className="text-sm text-[#6D3811] mt-1">Note: {res.note}</p>
+                )}
                 {res.rating && <p className="text-sm text-yellow-600">Rated {res.rating} Stars</p>}
               </div>
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${
