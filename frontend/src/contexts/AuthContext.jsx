@@ -59,6 +59,23 @@ export function AuthProvider({ children }) {
     return false;
   };
 
+  const signup = (name, email, password) => {
+    const users = JSON.parse(localStorage.getItem("diner28_users") || "[]");
+    if (users.some(u => u.email === email)) return false;
+    users.push({ name, email, password });
+    localStorage.setItem("diner28_users", JSON.stringify(users));
+    // Save profile with name
+    const profiles = JSON.parse(localStorage.getItem("diner28_profiles") || "{}");
+    profiles[email] = { name, email };
+    localStorage.setItem("diner28_profiles", JSON.stringify(profiles));
+    // Log in the user after signup
+    const logged = { email, role: "customer", name };
+    const token = generateToken(logged);
+    localStorage.setItem("diner28_token", token);
+    setUser(logged);
+    return true;
+  };
+
   const register = (email, password) => {
     const users = JSON.parse(localStorage.getItem("diner28_users") || "[]");
     if (users.some(u => u.email === email)) return false;
@@ -120,6 +137,7 @@ export function AuthProvider({ children }) {
       value={{
         user,
         login,
+        signup,
         register,
         logout,
         updateProfile,
