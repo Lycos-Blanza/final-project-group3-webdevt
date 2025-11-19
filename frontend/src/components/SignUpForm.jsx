@@ -6,11 +6,13 @@ export default function SignUpForm({ onLogInClick }) {
   const { signup } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [successName, setSuccessName] = useState(""); // ← Added
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
+    setSuccessName(""); // ← Reset success message
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
@@ -37,6 +39,8 @@ export default function SignUpForm({ onLogInClick }) {
     setLoading(false);
     if (!success) {
       setError('Email already exists');
+    } else {
+      setSuccessName(name); // ← Set success message with name
     }
   };
 
@@ -59,6 +63,11 @@ export default function SignUpForm({ onLogInClick }) {
         <input required type="password" name="confirmPassword" className="mt-1.5 p-2 border border-[#5C3A2E] rounded text-[1rem] bg-[#E9D3BE]" />
       </label>
       {error && <div className="text-red-600 text-sm">{error}</div>}
+      {successName && (
+        <div className="text-green-700 text-sm font-semibold mb-2">
+          Welcome, {successName}! Your account has been created.
+        </div>
+      )}
       <button type="submit" disabled={loading} className="mt-3 py-2.5 bg-[#5C3A2E] text-[#E9D3BE] rounded text-[1.1rem] font-bold">
         {loading ? 'Creating...' : 'Sign Up'}
       </button>
