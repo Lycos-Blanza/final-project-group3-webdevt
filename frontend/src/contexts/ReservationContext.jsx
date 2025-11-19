@@ -1,35 +1,25 @@
-// src/contexts/ReservationContext.jsx → FINAL 100% WORKING (NO ERRORS)
+// src/contexts/ReservationContext.jsx → 100% FRONTEND ONLY
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { useNotification } from "./NotificationContext";
 
 const ReservationContext = createContext();
 
-// NAMED EXPORT — this is correct
 export const useReservation = () => {
   const context = useContext(ReservationContext);
-  if (!context) {
-    throw new Error("useReservation must be used within ReservationProvider");
-  }
+  if (!context) throw new Error("useReservation must be used within ReservationProvider");
   return context;
 };
 
-const RESERVATION_DURATION = 90; // minutes
+const DURATION = 90; // 90 minutes
 
-const isOverlapping = (existing, newRes) => {
-  if (existing.date !== newRes.date || existing.tableNumber !== newRes.tableNumber) return false;
-  if (existing.status === "Cancelled") return false;
+const isOverlapping = (a, b) => {
+  if (a.date !== b.date || a.tableNumber !== b.tableNumber) return false;
+  if (a.status === "Cancelled") return false;
 
-  const toMinutes = (time) => {
-    const [h, m] = time.split(":").map(Number);
-    return h * 60 + m;
-  };
-
-  const s1 = toMinutes(existing.timeSlot);
-  const e1 = s1 + RESERVATION_DURATION;
-  const s2 = toMinutes(newRes.timeSlot);
-  const e2 = s2 + RESERVATION_DURATION;
-
+  const toMin = t => t.split(":").reduce((h, m) => h * 60 + +m, 0);
+  const s1 = toMin(a.timeSlot), e1 = s1 + DURATION;
+  const s2 = toMin(b.timeSlot), e2 = s2 + DURATION;
   return s1 < e2 && s2 < e1;
 };
 
@@ -38,30 +28,29 @@ export function ReservationProvider({ children }) {
   const { user } = useAuth();
   const notify = useNotification();
 
-  // Load from localStorage
+  // Load from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem("diner28_reservations");
     if (saved) {
       try {
         setAllReservations(JSON.parse(saved));
       } catch (e) {
-        console.error("Failed to parse reservations");
+        console.error("Corrupted reservations data");
       }
     }
   }, []);
 
-  // Save to localStorage whenever it changes
+  // Save every time it changes
   useEffect(() => {
-    if (allReservations.length > 0) {
-      localStorage.setItem("diner28_reservations", JSON.stringify(allReservations));
-    }
+    localStorage.setItem("diner28_reservations", JSON.stringify(allReservations));
   }, [allReservations]);
 
   const createReservation = async (data) => {
-    const hasConflict = allReservations.some(r => isOverlapping(r, data));
-    if (hasConflict) {
+    // Prevent double booking
+    const conflict = allReservations.some(r => isOverlapping(r, data));
+    if (conflict) {
       notify("This table is already booked for that time!", "error");
-      throw new Error("Overlapping reservation");
+      throw new Error("Conflict");
     }
 
     const newRes = {
@@ -81,7 +70,7 @@ export function ReservationProvider({ children }) {
 
   const updateStatus = (id, status) => {
     setAllReservations(prev =>
-      prev.map(r => (r._id === id ? { ...r, status } : r))
+      prev.map(r => r._id === id ? { ...r, status } : r)
     );
     notify(`Reservation ${status.toLowerCase()}`, "success");
   };
@@ -91,19 +80,19 @@ export function ReservationProvider({ children }) {
     if (saved) setAllReservations(JSON.parse(saved));
   };
 
+  const myReservations = allReservations.filter(r => r.userId === user?._id);
+
   return (
-    <ReservationContext.Provider
-      value={{
-        allReservations,
-        myReservations: allReservations.filter(r => r.userId === user?._id),
-        createReservation,
-        updateStatus,
-        cancelReservation: (id) => updateStatus(id, "Cancelled"),
-        confirmReservation: (id) => updateStatus(id, "Confirmed"),
-        completeReservation: (id) => updateStatus(id, "Completed"),
-        refetch,
-      }}
-    >
+    <ReservationContext.Provider value={{
+      allReservations,
+      myReservations,
+      createReservation,
+      updateStatus,
+      cancelReservation: (id) => updateStatus(id, "Cancelled"),
+      confirmReservation: (id) => updateStatus(id, "Confirmed"),
+      completeReservation: (id) => updateStatus(id, "Completed"),
+      refetch,
+    }}>
       {children}
     </ReservationContext.Provider>
   );

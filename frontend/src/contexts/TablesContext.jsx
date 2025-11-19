@@ -1,64 +1,38 @@
-// src/contexts/TablesContext.jsx
-import React, { createContext, useContext, useState, useEffect } from "react";
+// src/contexts/TablesContext.jsx → 100% FRONTEND ONLY
+import { createContext, useContext, useState, useEffect } from "react";
 
 const TablesContext = createContext();
+
+export const useTables = () => {
+  const context = useContext(TablesContext);
+  if (!context) throw new Error("useTables must be used within TablesProvider");
+  return context;
+};
 
 export function TablesProvider({ children }) {
   const [tables, setTables] = useState([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("restaurant_tables");
+    const saved = localStorage.getItem("diner28_tables");
     if (saved) {
-      try {
-        setTables(JSON.parse(saved));
-      } catch {
-        initializeDefaultTables();
-      }
+      setTables(JSON.parse(saved));
     } else {
-      initializeDefaultTables();
+      // Default tables
+      const defaults = [
+        { _id: "1", number: "1", capacity: 4 },
+        { _id: "2", number: "2", capacity: 6 },
+        { _id: "3", number: "3", capacity: 8 },
+        { _id: "4", number: "4", capacity: 2 },
+        { _id: "5", number: "5", capacity: 10 },
+      ];
+      localStorage.setItem("diner28_tables", JSON.stringify(defaults));
+      setTables(defaults);
     }
   }, []);
 
-  const initializeDefaultTables = () => {
-    const defaults = [
-      { id: 1, number: "T1", capacity: 4 },
-      { id: 2, number: "T2", capacity: 6 },
-      { id: 3, number: "T3", capacity: 2 },
-      { id: 4, number: "T4", capacity: 8 },
-    ];
-    setTables(defaults);
-    localStorage.setItem("restaurant_tables", JSON.stringify(defaults));
-  };
-
-  const saveTables = (newTables) => {
-    setTables(newTables);
-    localStorage.setItem("restaurant_tables", JSON.stringify(newTables));
-  };
-
-  const addTable = (table) => {
-    const newTable = { ...table, id: Date.now() };
-    saveTables([...tables, newTable]);
-  };
-
-  const updateTable = (id, updates) => {
-    saveTables(tables.map(t => (t.id === id ? { ...t, ...updates } : t)));
-  };
-
-  const deleteTable = (id) => {
-    saveTables(tables.filter(t => t.id !== id));
-  };
-
   return (
-    <TablesContext.Provider
-      value={{ tables, addTable, updateTable, deleteTable, saveTables }}
-    >
+    <TablesContext.Provider value={{ tables }}>
       {children}
     </TablesContext.Provider>
   );
-}
-
-export function useTables() {
-  const context = useContext(TablesContext);
-  if (!context) throw new Error("useTables must be used within TablesProvider");
-  return context;
 }
