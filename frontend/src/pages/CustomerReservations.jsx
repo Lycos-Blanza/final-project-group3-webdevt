@@ -1,7 +1,7 @@
-// src/pages/CustomerReservations.jsx
+// src/pages/CustomerReservations.jsx → UPDATED FOR FRONTEND-ONLY
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { useReservation } from "../contexts/ReservationContext"; // ← THIS IS THE KEY FIX
+import { useReservation } from "../contexts/ReservationContext"; 
 import { useTables } from "../contexts/TablesContext";
 import { useNavigate } from "react-router-dom";
 import CancelReservationButton from "../components/CancelReservationButton";
@@ -9,7 +9,10 @@ import UpdateReservationButton from "../components/UpdateReservationButton";
 
 export default function CustomerReservations() {
   const { user } = useAuth();
-  const { reservations = [], loading } = useReservation(); // ← Safe + default empty array
+  
+  // ← FIXED: Use myReservations (already filtered by user)
+  const { myReservations: reservations = [], loading } = useReservation(); 
+  
   const { tables } = useTables();
   const navigate = useNavigate();
 
@@ -21,7 +24,10 @@ export default function CustomerReservations() {
     );
   }
 
-  const pendingReservations = reservations.filter(r => r.status === "Pending");
+  // ← FIXED: Show ALL statuses (Pending, Confirmed, Completed) — not just Pending
+  const activeReservations = reservations.filter(r => 
+    r.status !== "Cancelled"
+  );
 
   return (
     <div className="pt-[56px] mx-auto max-w-[1200px] px-4 bg-[#f6f0e7] min-h-screen">
@@ -43,9 +49,9 @@ export default function CustomerReservations() {
                 Log In Now
               </button>
             </div>
-          ) : pendingReservations.length === 0 ? (
+          ) : activeReservations.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-2xl text-gray-600 mb-8">No pending reservations</p>
+              <p className="text-2xl text-gray-600 mb-8">No active reservations</p>
               <button
                 onClick={() => navigate("/reserve")}
                 className="px-10 py-5 bg-[#5C3A2E] text-white text-xl rounded-xl font-bold hover:bg-[#4a2e24] transition shadow-lg"
@@ -55,7 +61,7 @@ export default function CustomerReservations() {
             </div>
           ) : (
             <div className="space-y-8">
-              {pendingReservations.map((res) => {
+              {activeReservations.map((res) => {
                 const table = tables.find(t =>
                   t._id === res.tableNumber ||
                   t.number === res.tableNumber ||
@@ -80,7 +86,7 @@ export default function CustomerReservations() {
                       <div><strong className="text-[#5C3A2E]">Guests:</strong> {res.guests}</div>
                       <div>
                         <strong className="text-[#5C3A2E]">Table:</strong>{" "}
-                        {table?.number || "N/A"}{table && ` (up to ${table.capacity} seats)`}
+                        {table?.number ? `T${table.number}` : "N/A"}{table && ` (${table.capacity} seats)`}
                       </div>
                     </div>
 
@@ -90,12 +96,32 @@ export default function CustomerReservations() {
                       </div>
                     )}
 
+                    {res.paymentMethod && (
+                      <div className="mt-4 p-4 bg-blue-50 rounded-xl border-l-4 border-blue-400">
+                        <strong>Payment:</strong> {res.paymentMethod}
+                      </div>
+                    )}
+
                     <div className="mt-8 flex flex-wrap items-center gap-4">
-                      <span className="px-6 py-3 bg-yellow-100 text-yellow-800 rounded-full font-bold text-sm">
-                        Pending Approval
+                      {/* ← FIXED: Dynamic status badges */}
+                      <span className={`
+                        px-6 py-3 rounded-full font-bold text-sm
+                        ${res.status === "Confirmed" ? "bg-green-100 text-green-800" :
+                          res.status === "Completed" ? "bg-blue-100 text-blue-800" :
+                          "bg-yellow-100 text-yellow-800"}
+                      `}>
+                        {res.status === "Pending" ? "Pending Approval" :
+                         res.status === "Confirmed" ? "Confirmed" :
+                         res.status === "Completed" ? "Completed" : res.status}
                       </span>
-                      <CancelReservationButton reservationId={res._id || res.id} />
-                      <UpdateReservationButton reservation={res} />
+                      
+                      {/* Only show buttons for Pending/Confirmed */}
+                      {(res.status === "Pending" || res.status === "Confirmed") && (
+                        <>
+                          <CancelReservationButton reservationId={res._id || res.id} />
+                          <UpdateReservationButton reservation={res} />
+                        </>
+                      )}
                     </div>
                   </div>
                 );

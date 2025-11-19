@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
       return true;
     }
     if (email === "customer@diner28.com" && password === "customer123") {
-      const customer = { email, role: "customer" };
+      const customer = { email, role: "customer", name: "Customer" }; // ← Add name for demo
       const token = generateToken(customer);
       localStorage.setItem("diner28_token", token);
       setUser(customer);
@@ -50,7 +50,10 @@ export function AuthProvider({ children }) {
     const users = JSON.parse(localStorage.getItem("diner28_users") || "[]");
     const found = users.find(u => u.email === email && u.password === password);
     if (found) {
-      const logged = { email: found.email, role: "customer" };
+      // Get name from profile if available
+      const profiles = JSON.parse(localStorage.getItem("diner28_profiles") || "{}");
+      const name = profiles[email]?.name || found.name || "";
+      const logged = { email: found.email, role: "customer", name };
       const token = generateToken(logged);
       localStorage.setItem("diner28_token", token);
       setUser(logged);
@@ -123,7 +126,10 @@ export function AuthProvider({ children }) {
   };
 
   const addMessage = (msg) => {
-    const newMsg = { ...msg, id: Date.now(), date: new Date().toISOString() };
+    // Always set name from profile if not present
+    const profiles = JSON.parse(localStorage.getItem("diner28_profiles") || "{}");
+    const name = msg.name || profiles[user?.email]?.name || user?.name || "";
+    const newMsg = { ...msg, name, id: Date.now(), date: new Date().toISOString() };
     const updated = [...messages, newMsg];
     setMessages(updated);
     localStorage.setItem("diner28_messages", JSON.stringify(updated));

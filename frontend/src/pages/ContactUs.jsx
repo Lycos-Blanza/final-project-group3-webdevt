@@ -22,7 +22,7 @@ export default function ContactUs() {
       notify("Please fill in the message.", "error");
       return;
     }
-    addMessage({ ...form, email: user?.email });
+    addMessage({ ...form, email: user?.email, name: user?.name });
     notify("Message sent to admin!", "success");
     setForm({ message: "" });
     setErrors({});

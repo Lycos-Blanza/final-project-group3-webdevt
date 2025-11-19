@@ -79,6 +79,12 @@ export default function Messages() {
                   onClick={() => setSelectedMsg(msg)}
                   tabIndex={0}
                 >
+                  {/* Show Name if available */}
+                  {msg.name && (
+                    <p className="text-[#6D3811] font-semibold mb-1">
+                      <span className="font-bold">Name:</span> {msg.name}
+                    </p>
+                  )}
                   {msg.email && (
                     <p className="text-[#6D3811] font-semibold mb-1">
                       <span className="font-bold">From:</span> {msg.email}
@@ -142,6 +148,12 @@ export default function Messages() {
                 ×
               </button>
               <h3 className="text-2xl font-bold mb-4 text-[#6D3811]">Message Details</h3>
+              {/* Show Name if available */}
+              {selectedMsg.name && (
+                <p className="text-[#6D3811] font-semibold mb-1 break-all">
+                  <span className="font-bold">Name:</span> {selectedMsg.name}
+                </p>
+              )}
               {selectedMsg.email && (
                 <p className="text-[#6D3811] font-semibold mb-1 break-all">
                   <span className="font-bold">From:</span> {selectedMsg.email}
