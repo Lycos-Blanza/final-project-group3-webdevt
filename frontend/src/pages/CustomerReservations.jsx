@@ -81,7 +81,13 @@ export default function CustomerReservations() {
                     </div>
                     {res.note && (
                       <div className="text-sm text-gray-700 mt-2 pl-2 border-l-2 border-gray-300">
-                        <span className="font-medium">Note:</span> {res.note}
+                        <span className="font-medium">Note:</span>
+                        <span
+                          className="inline-block max-w-full overflow-hidden text-ellipsis whitespace-nowrap align-middle"
+                          style={{ maxWidth: "100%" }}
+                        >
+                          {" "}{res.note}
+                        </span>
                       </div>
                     )}
                   </div>
